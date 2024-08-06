@@ -1,0 +1,81 @@
+version: '3.7'
+
+services:
+  mongo_setup:
+    container_name: mongo_setup
+    image: mongo:5
+    restart: on-failure
+    networks:
+      - network_therapose
+    volumes:
+      - ./mongo_setup.sh:/scripts/mongo_setup.sh
+    entrypoint: ["bash", "/scripts/mongo_setup.sh"]
+    env_file: ./.env
+    depends_on:
+      - mongodb1
+      - mongodb2
+      - mongodb3
+
+  mongodb1:
+    image: mongo:5
+    restart: on-failure
+    container_name: mongodb1
+    env_file: ./.env
+    networks:
+      - network_therapose
+    volumes:
+      - volume_mongodb1:/data/db
+      - ./mongo_replication.key:/etc/mongo_replication.key
+      - ./init_database.js:/docker-entrypoint-initdb.d/init_database.js
+    ports:
+      - 30001:27017
+    command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all", "--keyFile", "/etc/mongo_replication.key"]
+
+  mongodb2:
+    image: mongo:5
+    restart: on-failure
+    container_name: mongodb2
+    env_file: ./.env
+    networks:
+      - network_therapose
+    volumes:
+      - volume_mongodb2:/data/db
+      - ./mongo_replication.key:/etc/mongo_replication.key
+    ports:
+      - 30002:27017
+    command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all", "--keyFile", "/etc/mongo_replication.key"]
+    depends_on:
+      - mongodb1
+
+  mongodb3:
+    image: mongo:5
+    restart: on-failure
+    container_name: mongodb3
+    env_file: ./.env
+    networks:
+      - network_therapose
+    volumes:
+      - volume_mongodb3:/data/db
+      - ./mongo_replication.key:/etc/mongo_replication.key
+    ports:
+      - 30003:27017
+    command: ["--replSet", "${MONGO_REPLICA_SET_NAME}", "--bind_ip_all", "--keyFile", "/etc/mongo_replication.key" ]
+    depends_on:
+      - mongodb1
+
+volumes:
+  volume_mongodb1:
+    name: volume_mongodb1
+    external: false
+  volume_mongodb2:
+    name: volume_mongodb2
+    external: false
+  volume_mongodb3: 
+    name: volume_mongodb3
+    external: false
+
+networks:
+  network_therapose:
+    name: network_therapose
+    external: true
+    

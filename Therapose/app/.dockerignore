@@ -1,0 +1,6 @@
+app/app_env
+app/.env
+app/calibration/files/*
+app/connection_db/temp/*
+app/images/patients/*
+__pycache__/
