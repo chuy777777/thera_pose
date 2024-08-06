@@ -7,6 +7,7 @@ services:
     container_name: thera_pose
     env_file: ./app/.env
     environment:
+      - PYTHONUNBUFFERED=1
       - DISPLAY=$DISPLAY
     privileged: true
     volumes:

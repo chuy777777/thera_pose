@@ -2,6 +2,7 @@ TheraPose/app/app/app_env
 TheraPose/app/app/calibration/files/*
 TheraPose/app/app/connection_db/temp/*
 TheraPose/app/app/images/patients/*
+TheraPose/app/app/.env 
 TheraPose/db/.env 
 TheraPose/db/mongo_replication.key
 /Documents
