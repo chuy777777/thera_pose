@@ -1,5 +1,6 @@
 import numpy as np
 import customtkinter  as ctk
+from decouple import config
 
 from general.grid_frame import GridFrame
 from general.create_frame import CreateFrame
@@ -58,6 +59,9 @@ class App(ctk.CTk):
         ctk.CTk.__init__(self)
         self.frame_principal_application=None
 
+        # Nombre de la aplicacion
+        APP_NAME=config("APP_NAME")
+        
         # Configuramos nuestra aplicacion
         self.geometry("1366x768")
         self.title("Aplicacion principal")

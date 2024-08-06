@@ -5,7 +5,7 @@
 
 # Funcion que imprime el nombre de la aplicacion
 # figlet App (de aqui se optiene el texto para el logo)
-app_name="therapose"
+app_name="thera_pose"
 
 function print_logo(){
     figlet $app_name

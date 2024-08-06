@@ -1,8 +1,8 @@
-Therapose/app/app/app_env
-Therapose/app/app/calibration/files/*
-Therapose/app/app/connection_db/temp/*
-Therapose/app/app/images/patients/*
-Therapose/db/.env 
-Therapose/db/mongo_replication.key
+TheraPose/app/app/app_env
+TheraPose/app/app/calibration/files/*
+TheraPose/app/app/connection_db/temp/*
+TheraPose/app/app/images/patients/*
+TheraPose/db/.env 
+TheraPose/db/mongo_replication.key
 /Documents
 __pycache__/
