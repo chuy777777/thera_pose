@@ -1,6 +1,7 @@
 from pymongo import MongoClient, errors, timeout
 from pymongo.collection import Collection
 import copy
+from decouple import config
 
 import connection_db.utils_database as utils_database
 from general.application_notifications import MessageNotificationConnectionDB
@@ -242,6 +243,7 @@ class ConnectionDB():
 
     @staticmethod
     def create_connection_db(username, password, connection_type):
+        URI_CLOUD_CLUSTER=config("URI_CLOUD_CLUSTER")
         database_name="therapose"
         replica_set_name="dbrs"
         # URIs para las conexiones con las bases de datos
@@ -252,7 +254,7 @@ class ConnectionDB():
             mongodb_uri="mongodb://{}:{}@mongodb1:27017/replicaSet={}?authSource=admin&replicaSet={}&readPreference=primary&directConnection=true&ssl=false".format(username, password, replica_set_name, replica_set_name) 
         elif connection_type == "cloud":
             # URI para crear conexion con 'cloud'
-            mongodb_uri="mongodb+srv://{}:{}@cluster0.zjmv5mw.mongodb.net/{}?retryWrites=true&w=majority".format(username, password, database_name)
+            mongodb_uri="mongodb+srv://{}:{}@{}/{}?retryWrites=true&w=majority".format(username, password, URI_CLOUD_CLUSTER, database_name)
         connection_db=ConnectionDB(database_name=database_name, mongodb_uri=mongodb_uri, connection_type=connection_type)
         return connection_db
                         
