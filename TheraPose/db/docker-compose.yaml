@@ -6,7 +6,7 @@ services:
     image: mongo:5
     restart: on-failure
     networks:
-      - network_therapose
+      - network_thera_pose
     volumes:
       - ./mongo_setup.sh:/scripts/mongo_setup.sh
     entrypoint: ["bash", "/scripts/mongo_setup.sh"]
@@ -22,7 +22,7 @@ services:
     container_name: mongodb1
     env_file: ./.env
     networks:
-      - network_therapose
+      - network_thera_pose
     volumes:
       - volume_mongodb1:/data/db
       - ./mongo_replication.key:/etc/mongo_replication.key
@@ -37,7 +37,7 @@ services:
     container_name: mongodb2
     env_file: ./.env
     networks:
-      - network_therapose
+      - network_thera_pose
     volumes:
       - volume_mongodb2:/data/db
       - ./mongo_replication.key:/etc/mongo_replication.key
@@ -53,7 +53,7 @@ services:
     container_name: mongodb3
     env_file: ./.env
     networks:
-      - network_therapose
+      - network_thera_pose
     volumes:
       - volume_mongodb3:/data/db
       - ./mongo_replication.key:/etc/mongo_replication.key
@@ -75,7 +75,7 @@ volumes:
     external: false
 
 networks:
-  network_therapose:
-    name: network_therapose
+  network_thera_pose:
+    name: network_thera_pose
     external: true
     
